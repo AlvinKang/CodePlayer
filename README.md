@@ -1,0 +1,2 @@
+# CodePlayer
+A very very basic version of HTML, CSS, JavaScript previewer. Copy and paste your code into the appropriate text boxes and click **RUN** to see the result! Toggle the different views by clicking on the buttons above.
