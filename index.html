@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+    <title>Code Player</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> -->
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div id="menuBar">
+            
+            <div id="left">CodePlayer</div>
+
+            <div id="right">
+                <button id="run">Run &#9655</button>
+            </div>
+            
+            <div id="toggles">
+                
+                <ul>
+                    <li class="toggle selected" id="toggleHTML">HTML</li>
+                    <li class="toggle" id="toggleCSS">CSS</li>
+                    <li class="toggle" id="toggleJS">JS</li>
+                    <li class="toggle selected" id="toggleResult">Result</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="break"></div>
+
+        <div class="codeContainer" id="HTMLContainer">
+
+            <div class="codeLabel">HTML</div>
+            <textarea id="htmlCode">
+                <div id="test"></div>
+                <div id="imgContainer">
+                    <img src="https://www.google.com/logos/doodles/2016/2016-doodle-fruit-games-day-13-5751002868219904-hp.gif" id="googleImg">
+                </div>
+            </textarea>
+
+        </div>
+        <div class="codeContainer" id="CSSContainer">
+            
+            <div class="codeLabel">CSS</div>
+            <textarea id="cssCode">
+                html {
+                    background-color:green;}
+                
+                #test {
+                    font-size: 10em;
+                    text-align: center;
+                    font-family: futura;
+                    color: white;}
+
+                #imgContainer {
+                    width:100%;}
+
+                #googleImg {
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: block;}
+            </textarea>
+
+        </div>
+        <div class="codeContainer" id="JSContainer">
+            
+            <div class="codeLabel">JS</div>
+            <textarea id="jsCode">document.getElementById("test").innerHTML="Green is awesome"</textarea>
+
+        </div>
+        <div class="codeContainer" id="ResultContainer">
+            
+            <div class="codeLabel">Result</div>
+            <iframe src="" id="resultFrame"></iframe>
+
+        </div>
+            
+    </div>
+
+    <script>
+
+        var windowHeight = $(window).height();
+        var menuBarHeight = $("#menuBar").height();
+
+        var codeContainerHeight = windowHeight - menuBarHeight;
+
+        $(".codeContainer").height(codeContainerHeight+"px");
+
+        $(".toggle").click(function() {
+            $(this).toggleClass("selected");
+
+            var activeDiv = $(this).html();
+
+            $("#"+activeDiv+"Container").toggle();
+
+            var showingDivs = $(".codeContainer").filter(function() {
+                return ($(this).css("display") != "none");
+            }).length;
+
+            var width = 100/showingDivs;
+
+            $(".codeContainer").width(width+"%");
+
+        });
+
+        $("#run").click(function() {
+
+            $("iframe").contents().find("html").html('<style>'+$("#cssCode").val()+'</style>'+$("#htmlCode").val());
+                document.getElementById('resultFrame').contentWindow.
+                eval($("#jsCode").val());
+
+        });
+
+    </script>
+
+
+</body>
+</html>
